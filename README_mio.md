@@ -103,6 +103,13 @@
      
      curl -X GET http://localhost:5000/students
      curl -X POST http://localhost:5000/create-student \
+
+     curl -X GET http://localhost:5000/students/1
+
+     curl -X PATCH http://localhost:5000/patch-student/1   \
+
+     curl -X DELETE "http//localhost:5000/delete-student?name=Juan"
+
      -H "Content-Type: application/json" \
      -d '{"name": "Juan", "age": 20, "major" : "Ingenieria"}'
 
@@ -118,3 +125,5 @@ Según Gemini, la CURL, se puede generar por Postman.
 Control de cambio
 
 1.- git commit -m "28-09-2024 - Metodos GET y POST completos"
+
+2.- git commit -m "28-09-2024 - Metodos GET, POST, DELETE, PUSH completos CON BASE DE DATOS"

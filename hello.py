@@ -72,6 +72,52 @@ def get_students():
     students = Student.query.all()
     return jsonify([student.to_dist() for student in students])
 
+# #  Ruta para obtener un estudiante por params ( Por parametro de ruta )
+@app.route('/students/<int:student_id>', methods=['GET'])
+def get_student_by_id(student_id):
+    student = Student.query.get(student_id)
+    if student:
+           return jsonify(student.to_dist())
+    return jsonify({'message': 'El estudiante no ha sido encontrado'})
+    
+
+# Ruta para borrar todos los estudiantes
+@app.route('/delete-students', methods=['DELETE'])
+def delete_all_students():
+    db.session.query(Student).delete()
+    db.session.commit()
+    return jsonify({'message': 'Estudiantes borrados correctamente'})
+
+# # AQUI Ruta para actualizar parcialmente un estudiante
+@app.route('/patch-student/<int:student_id>', methods=['PATCH'])
+def update_one_student(student_id):
+    data = request.json
+    student = Student.query.get(student_id)
+    if student:
+       for key, value in data.items():
+           setattr(student, key, value)
+       db.session.commit()
+       return jsonify({'message': 'Estudiante actualizado parcialmente', 'data': student.to_dist()})
+    return jsonify({'message': 'Estudiante actualizado parcialmente'})
+
+# # Ruta para eliminar un estudiante por query params
+@app.route('/delete-student/', methods=['DELETE'])
+def delete_student_by_name():
+     name = request.args.get('name')
+     student = Student.query.filter_by(name=name).first()
+     if student:
+          db.session.delete(student)
+          db.session.commit()
+          return jsonify({'message': f'Estudiante {name} eliminado'})
+     return jsonify({'message': 'Estudiante no encontrado'})
+    
+
+
+
+
+
+
+
 
 # @app.route('/students', methods=['GET'])
 # def get_students():
