@@ -45,6 +45,7 @@
      Comando con pip, instalar los dos:
         pip install Flask-SQLAlchemy
         pip install psycopg2 (desde la consola de cmder)
+        pip install flask-cors  
 
      Comando para verificar que se instalo:
         pip list

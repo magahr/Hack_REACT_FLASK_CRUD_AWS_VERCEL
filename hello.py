@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 
+
 # Tipos de metodos:
 # GET -> Se utiliza para recuperar informacion del servidor
 # POST -> Se utiliza para enviar datos al servidor para su procesamiento
