@@ -128,3 +128,5 @@ Control de cambio
 1.- git commit -m "28-09-2024 - Metodos GET y POST completos"
 
 2.- git commit -m "28-09-2024 - Metodos GET, POST, DELETE, PUSH completos CON BASE DE DATOS"
+
+3.- git commit -m "03-11-2024 - Se agrego la liberia Flask-Cors  "
