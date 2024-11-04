@@ -73,6 +73,7 @@
        \l (lista la BD)
     -Crear la BASE DE DATOS
        CREATE DATABASE estudiantes_grupo_8;
+
  
 
 # Paso 15: Configuración de la Base de Datos
@@ -130,3 +131,5 @@ Control de cambio
 2.- git commit -m "28-09-2024 - Metodos GET, POST, DELETE, PUSH completos CON BASE DE DATOS"
 
 3.- git commit -m "03-11-2024 - Se agrego la liberia Flask-Cors  "
+
+4.- git commit -m "04-11-2024 - Se agrego la carpeta imagen"
