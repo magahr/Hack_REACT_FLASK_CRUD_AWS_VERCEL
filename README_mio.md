@@ -1,10 +1,10 @@
-# flask-grupo-8
+# Hack_REACT_FLASK_CRUD
 
 # Paso 1.- Clone el repo
-    git clone https://github.com/magahr/flask-grupo-8-profe.git
+    git clone  https://github.com/magahr/Hack_REACT_FLASK_CRUD_AWS.git
 
 # Paso 2.-Entre en le directorio de repo 
-   cd flask-grupo-8-profe
+   cd Hack_REACT_FLASK_CRUD
 
 # Paso 3: crear el virtual 
     Con Bach:
@@ -52,7 +52,7 @@
 
 # Paso 11: instalar o crear uno nuevo las dependencias necesarias las cuales dejare en un archivo requirements.txt
     Si ya esta creado, para actualizar una ves que ya se ha bajado el repo:
-       # pip install -r requirements.txt
+       # pip install -r requeriments.txt
 
     Si no está creado, o se quiere actualizar:
        # pip freeze > requeriments.txt
@@ -119,17 +119,8 @@
 # Paso 16: Probar algunos de los endpoints ya creados, los cuales puedes conseguir yendo directamente al archivo hello.py 
 
 
-lo hice solo con el GET y el POST, FALTA 40 MIN DEL VIDEO TOMAR UN SOLO ESTUDANTE, MODIFICAR Y ELIMINAR.
-eL VIDEO ES LA CLASE 32 FALTA LA MITAD POR VER...
-(video: Clase32_02_09_2024_Conectando Flask con nuestra Base de datos Parte 2_NO_VISTA)
-Según Gemini, la CURL, se puede generar por Postman.
 
 Control de cambio
 
-1.- git commit -m "28-09-2024 - Metodos GET y POST completos"
+1.- git commit -m "16-11-2024 - Starting with WSD"
 
-2.- git commit -m "28-09-2024 - Metodos GET, POST, DELETE, PUSH completos CON BASE DE DATOS"
-
-3.- git commit -m "03-11-2024 - Se agrego la liberia Flask-Cors  "
-
-4.- git commit -m "04-11-2024 - Se agrego la carpeta imagen"
