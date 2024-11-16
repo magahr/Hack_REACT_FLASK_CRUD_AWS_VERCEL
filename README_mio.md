@@ -25,6 +25,13 @@
     ENV/
     env.bak/
     venv.bak/  
+
+# crear la variable de entorno .env
+   DB_USER=tu_usuario
+   DB_PASSWORD=tu_contraseña
+   DB_HOST=formulariossrds.amazonaws.com
+   DB_PORT=5432
+   DB_NAME=formularios
     
 # Paso 6.- Salir de Visual CODE
 
@@ -46,6 +53,7 @@
         pip install Flask-SQLAlchemy
         pip install psycopg2 (desde la consola de cmder)
         pip install flask-cors  
+        pip install python-dotenv
 
      Comando para verificar que se instalo:
         pip list

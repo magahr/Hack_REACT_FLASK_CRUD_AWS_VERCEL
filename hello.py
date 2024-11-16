@@ -1,8 +1,11 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, psycopg2
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
 # Tipos de metodos:
 # GET -> Se utiliza para recuperar informacion del servidor
@@ -11,27 +14,44 @@ from flask_cors import CORS
 # PUT -> Se utiliza para actualizar un recurso en el servidor
 # PATCH -> Se utiliza para actualizar parcialmente un recurso en el servidor
 
+# desde aqui habia una conexion con una base de datos postgress local
+# app = Flask(__name__)
+# CORS(app)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/estudiantes_grupo_8'
+# DATABASE_URL = "postgresql://usuario:contraseña@host:puerto/base_de_datos"
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# db = SQLAlchemy(app)
+# dhasta aqui habia una conexion con una base de datos postgress local
 
+# desde aqui con una conexion hacia AWS y CON VARIABLES DE ENTORNO EN .env 
+app = Flask(__name__) 
 
-app = Flask(__name__)
-CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/estudiantes_grupo_8'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db_user = os.getenv('DB_USER')
+db_password = os.getenv('DB_PASSWORD')
+db_host = os.getenv('DB_HOST')
+db_port = os.getenv('DB_PORT')
+db_name = os.getenv.get('DB_NAME')   
+
+db_url = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 db = SQLAlchemy(app)
+# hasta aqui con una conexion hacia AWS y CON VARIABLES DE ENTORNO EN .env 
 
-# Creación del modelo de Student (modelo - tabla de la base de datos)
-class Student(db.Model):
+
+# Creación del modelo de Formulario (modelo - tabla de la base de datos)
+#id, nombre, email, edad
+class Formulario(db.Model):
      id = db.Column(db.Integer, primary_key = True)
-     name = db.Column(db.String(50), nullable = False)
-     age = db.Column(db.Integer, nullable = False)
-     major = db.Column(db.String(50), nullable = False)
+     nombre = db.Column(db.String(50), nullable = False)
+     edad = db.Column(db.Integer, nullable = False)
+     email = db.Column(db.String(50), nullable = False)
 
      def to_dist(self):
          return {
                           'id':self.id, 
-                          'name':self.name, 
-                          'age':self.age,
-                          'major':self.major
+                          'nombre':self.nombre, 
+                          'edad':self.edad,
+                          'email':self.email
          }
 
 # Creación de la Base de Dato y su tabla
@@ -48,139 +68,65 @@ with app.app_context():
 
 @app.route("/")
 def hello_world():
-    return "<p>Hello, World from flask-grupo-8-profe!</p>"
-
-# #  Ruta para obtener estudiantes  en el minuto 14:45 - esto se hizo con un dictionary
-# @app.route('/students', methods=['GET'])
-# def get_students():
-#     return jsonify(students)
+    return "<p>(Prueba 02) -    Hello, Big World from Hack_REACT_FLASK_CRUD_AWS!</p>"
 
 
 # POST -> Se utiliza para enviar datos al servidor para su procesamiento
 # Ruta para crear un estudiante.
-@app.route('/create-student', methods=['POST'])
-def create_student():
+@app.route('/create-formulario', methods=['POST'])
+def create_formulario():
     data = request.json
-    new_student = Student(name = data['name'],
-                          age = data['age'],
-                          major = data['major'] ) 
-    db.session.add(new_student)
+    new_formulario =Formulario(nombre = data['nombre'],
+                          edad = data['edad'],
+                          email = data['email'] ) 
+    db.session.add(new_formulario)
     db.session.commit()
-    return jsonify({'message': 'Estudiante creado correctamente', 
-                    'data': new_student.to_dist()})
+    return jsonify({'message': 'Usuario creado correctamente', 
+                    'data': new_formulario.to_dist()})
 
 # GET -> Se utiliza para recuperar informacion del servidor
-@app.route('/students', methods=['GET'])
-def get_students():
-    students = Student.query.all()
-    return jsonify([student.to_dist() for student in students])
+@app.route('/formularios', methods=['GET'])
+def get_formularios():
+    formularios = Formulario.query.all()
+    return jsonify([formulario.to_dist() for formulario in formularios])
 
-# #  Ruta para obtener un estudiante por params ( Por parametro de ruta )
-@app.route('/students/<int:student_id>', methods=['GET'])
-def get_student_by_id(student_id):
-    student = Student.query.get(student_id)
-    if student:
-           return jsonify(student.to_dist())
-    return jsonify({'message': 'El estudiante no ha sido encontrado'})
+# #  Ruta para obtener un usuario por params ( Por parametro de ruta )
+@app.route('/formularios/<int:formulario_id>', methods=['GET'])
+def get_formulario_by_id(formulario_id):
+    formulario = Formulario.query.get(formulario_id)
+    if formulario:
+           return jsonify(formulario.to_dist())
+    return jsonify({'message': 'El usuario no ha sido encontrado'})
     
 
-# Ruta para borrar todos los estudiantes
-@app.route('/delete-students', methods=['DELETE'])
-def delete_all_students():
-    db.session.query(Student).delete()
+# Ruta para borrar todos los usuarios
+@app.route('/delete-formularios', methods=['DELETE'])
+def delete_all_formularios():
+    db.session.query(Formulario).delete()
     db.session.commit()
-    return jsonify({'message': 'Estudiantes borrados correctamente'})
+    return jsonify({'message': 'Usuarios borrados correctamente'})
 
-# # AQUI Ruta para actualizar parcialmente un estudiante
-@app.route('/patch-student/<int:student_id>', methods=['PATCH'])
-def update_one_student(student_id):
+# # AQUI Ruta para actualizar parcialmente un usuario
+@app.route('/patch-formulario/<int:formulario_id>', methods=['PATCH'])
+def update_one_formulario(formulario_id):
     data = request.json
-    student = Student.query.get(student_id)
-    if student:
+    formulario = Formulario.query.get(formulario_id)
+    if formulario:
        for key, value in data.items():
-           setattr(student, key, value)
+           setattr(formulario, key, value)
        db.session.commit()
-       return jsonify({'message': 'Estudiante actualizado parcialmente', 'data': student.to_dist()})
-    return jsonify({'message': 'Estudiante actualizado parcialmente'})
+       return jsonify({'message': 'Usuario actualizado parcialmente', 'data': formulario.to_dist()})
+    return jsonify({'message': 'Usuario actualizado parcialmente'})
 
-# # Ruta para eliminar un estudiante por query params
-@app.route('/delete-student/', methods=['DELETE'])
-def delete_student_by_name():
-     name = request.args.get('name')
-     student = Student.query.filter_by(name=name).first()
-     if student:
-          db.session.delete(student)
+# # Ruta para eliminar un usuario por query params
+@app.route('/delete-formulario/', methods=['DELETE'])
+def delete_formulario_by_nombre():
+     nombre = request.args.get('nombre')
+     formulario = Formulario.query.filter_by(nombre=nombre).first()
+     if formulario:
+          db.session.delete(formulario)
           db.session.commit()
-          return jsonify({'message': f'Estudiante {name} eliminado'})
-     return jsonify({'message': 'Estudiante no encontrado'})
+          return jsonify({'message': f'Usuario {nombre} eliminado'})
+     return jsonify({'message': 'Usuario no encontrado'})
     
 
-
-
-
-
-
-
-
-# @app.route('/students', methods=['GET'])
-# def get_students():
-#     students = Student.query.all()
-#     return jsonify([{'id':student.id, 
-#                       'name':student.name, 
-#                       'age':student.age,
-#                       'major':student.major} for student in students])
-
-# @app.route('/')
-# def hello_world():
-#     return 'Hello, EveryBody!'
-
-# @app.route('/oplesk', methods=['GET','POST','DELETE','PUT','PATCH'])
-# def social_oplesk():
-#     return '<h1> Hello; from oplesk </h1>'
-
-
-# #  Ruta para obtener estudiantes
-# @app.route('/students', methods=['GET'])
-# def get_students():
-#     return jsonify(students)
-
-# #  Ruta para obtener un estudiante por params ( Por parametro de ruta )
-# @app.route('/students/<int:student_id>', methods=['GET'])
-# def get_student_by_id(student_id):
-#     for student in students:
-#         if student.get('id') == student_id:
-#             return jsonify(student)
-#     return jsonify({'message': 'El estudiante no ha sido encontrado'})
-    
-
-# # Ruta para crear un estudiante.
-# @app.route('/create-student', methods=['POST'])
-# def create_student():
-#     data = request.json
-#     students.append(data)
-#     return jsonify({'message': 'Estudiante creado correctamente', 'data': data})
-
-# # Ruta para borrar todos los estudiantes
-# @app.route('/delete-students', methods=['DELETE'])
-# def delete_all_students():
-#     students.clear()
-#     return jsonify({'message': 'Estudiantes borrados correctamente'})
-
-# # Ruta para actualizar parcialmente un estudiante
-# @app.route('/patch-student', methods=['PATCH'])
-# def update_one_student():
-#     data = request.json
-#     students[0].update(data) # Actualiza el priomer estudiante de la lista.
-#     return jsonify({'message': 'Estudiante actualizado parcialmente'})
-
-# # Ruta para eliminar un estudiante por query params
-# @app.route('/delete-student/', methods=['DELETE'])
-# def delete_student_by_name():
-#     name = request.args.get('name')
-#     if name:
-#         for student in students:
-#             if student.get('name') == name:
-#                 students.remove(student)
-#                 return jsonify({'message': f'Estudiante {name} eliminado'})
-#         return jsonify({'message': 'Estudiante no encontrado'})
-#     return jsonify({'message': 'Proporciona un nombre de estudiante'})
