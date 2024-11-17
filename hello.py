@@ -80,13 +80,6 @@ def get_formulario_by_id(formulario_id):
     return jsonify({'message': 'El usuario no ha sido encontrado'})
     
 
-# Ruta para borrar todos los usuarios
-@app.route('/delete-formularios', methods=['DELETE'])
-def delete_all_formularios():
-    db.session.query(Formulario).delete()
-    db.session.commit()
-    return jsonify({'message': 'Usuarios borrados correctamente'})
-
 # # AQUI Ruta para actualizar parcialmente un usuario
 @app.route('/patch-formulario/<int:formulario_id>', methods=['PATCH'])
 def update_one_formulario(formulario_id):
@@ -100,14 +93,16 @@ def update_one_formulario(formulario_id):
     return jsonify({'message': 'Usuario actualizado parcialmente'})
 
 # # Ruta para eliminar un usuario por query params
-@app.route('/delete-formulario/', methods=['DELETE'])
-def delete_formulario_by_nombre():
-     nombre = request.args.get('nombre')
-     formulario = Formulario.query.filter_by(nombre=nombre).first()
-     if formulario:
-          db.session.delete(formulario)
-          db.session.commit()
-          return jsonify({'message': f'Usuario {nombre} eliminado'})
-     return jsonify({'message': 'Usuario no encontrado'})
-    
+@app.route('/delete-formulario/<int:formulario_id>', methods=['DELETE'])
+def delete_formulario_by_nombre(formulario_id):
+    formulario = Formulario.query.get(formulario_id)
+
+    if formulario:
+        db.session.delete(formulario)
+        db.session.commit()
+        return jsonify({'message': f'Usuario con ID {formulario_id} eliminado'})
+    else:
+        return jsonify({'message': 'Usuario no encontrado'}), 404
+
+
 
