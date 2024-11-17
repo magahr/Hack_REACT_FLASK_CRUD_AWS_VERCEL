@@ -2,7 +2,12 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 from flask_cors import CORS
-# Tipos de metodos:
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+# Tipos de metodos: psycopg2
 # GET -> Se utiliza para recuperar informacion del servidor
 # POST -> Se utiliza para enviar datos al servidor para su procesamiento
 # DELETE -> Se utiliza para eliminar uno o mas recursos en el servidor o BD
@@ -10,13 +15,35 @@ from flask_cors import CORS
 # PATCH -> Se utiliza para actualizar parcialmente un recurso en el servidor
 
 # desde aqui habia una conexion con una base de datos postgress local
-app = Flask(__name__)
-CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/estudiantes_grupo_8'
-DATABASE_URL = "postgresql://usuario:contraseña@host:puerto/base_de_datos"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+# app = Flask(__name__)
+# CORS(app)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/estudiantes_grupo_8'
+# DATABASE_URL = "postgresql://usuario:contraseña@host:puerto/base_de_datos"
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# db = SQLAlchemy(app)
 # dhasta aqui habia una conexion con una base de datos postgress local
+
+# desde aqui con una conexion hacia AWS y CON VARIABLES DE ENTORNO EN .env 
+
+app = Flask(__name__) 
+CORS(app)
+db_user = os.getenv('DB_USER')
+db_password = os.getenv('DB_PASSWORD')
+db_host = os.getenv('DB_HOST')
+db_port = os.getenv('DB_PORT')
+db_name = os.getenv.get('DB_NAME') 
+
+#Configuración de Gemini 
+# db_url = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+# app.config['SQLALCHEMY_DATABASE_URI'] = db_url
+# db = SQLAlchemy(app)
+# Configuracion Otra
+db_url = f"postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
+db = SQLAlchemy(app)
+
+
+# hasta aqui con una conexion hacia AWS y CON VARIABLES DE ENTORNO EN .env 
 
 
 # Creación del modelo de Formulario (modelo - tabla de la base de datos)
@@ -49,7 +76,7 @@ with app.app_context():
 
 @app.route("/")
 def hello_world():
-    return "<p>(hello_local) -    Hello, Big World from Hack_REACT_FLASK_CRUD_AWS!</p>"
+    return "<p>(Prueba 02) -    Hello, Big World from Hack_REACT_FLASK_CRUD_AWS!</p>"
 
 
 # POST -> Se utiliza para enviar datos al servidor para su procesamiento
