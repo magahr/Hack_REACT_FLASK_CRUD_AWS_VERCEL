@@ -27,9 +27,9 @@
     venv.bak/  
 
 # crear la variable de entorno .env
-   DB_USER=tu_usuario
-   DB_PASSWORD=tu_contraseña
-   DB_HOST=formulariossrds.amazonaws.com
+   DB_USER=postgres
+   DB_PASSWORD=postgres
+   DB_HOST=formulariosrds.chwqcma4ef8n.us-east-2.rds.amazonaws.com
    DB_PORT=5432
    DB_NAME=formularios
     
