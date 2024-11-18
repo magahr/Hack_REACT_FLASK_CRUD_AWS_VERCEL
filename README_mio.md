@@ -1,5 +1,13 @@
 # Hack_REACT_FLASK_CRUD
 
+     Rutas en el trabajo:
+          
+          Repo:
+          C:\Users\mhernandez.FOSPUCA\Documents\cursos\Ciclo08\Practica\hack\React\Hack_REACT_FLASK_CRUD_AWS
+
+
+
+
 # Paso 1.- Clone el repo
     git clone  https://github.com/magahr/Hack_REACT_FLASK_CRUD_AWS.git
 
