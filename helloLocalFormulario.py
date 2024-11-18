@@ -1,25 +1,20 @@
-# CON LA BASE DE DATOS  AWS  BD formulario
+# CON LA BASE DE DATOS   LOCAL  BD formulario
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 from flask_cors import CORS
-from dotenv import load_dotenv
-import os
+# Tipos de metodos:
+# GET -> Se utiliza para recuperar informacion del servidor
+# POST -> Se utiliza para enviar datos al servidor para su procesamiento
+# DELETE -> Se utiliza para eliminar uno o mas recursos en el servidor o BD
+# PUT -> Se utiliza para actualizar un recurso en el servidor
+# PATCH -> Se utiliza para actualizar parcialmente un recurso en el servidor
 
-load_dotenv()
-
-app = Flask(__name__) 
+# desde aqui habia una conexion con una base de datos postgress local
+app = Flask(__name__)
 CORS(app)
-
-db_user = os.getenv('DB_USER')
-db_password = os.getenv('DB_PASSWORD')
-db_host = os.getenv('DB_HOST')
-db_port = os.getenv('DB_PORT')
-db_name = os.getenv('DB_NAME') 
-
-# Improved connection URL construction
-db_url = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
-app.config['SQLALCHEMY_DATABASE_URI'] = db_url
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/estudiantes_grupo_8'
+DATABASE_URL = "postgresql://usuario:contraseña@host:puerto/base_de_datos"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 # dhasta aqui habia una conexion con una base de datos postgress local
@@ -28,17 +23,17 @@ db = SQLAlchemy(app)
 # Creación del modelo de Formulario (modelo - tabla de la base de datos)
 #id, nombre, email, edad
 class Formulario(db.Model):
-     nombre = db.Column(db.String(50), nullable = False)
-     email = db.Column(db.String(50), nullable = False)
-     edad = db.Column(db.Integer, nullable = False)
      id = db.Column(db.Integer, primary_key = True)
-    
+     nombre = db.Column(db.String(50), nullable = False)
+     edad = db.Column(db.Integer, nullable = False)
+     email = db.Column(db.String(50), nullable = False)
+
      def to_dist(self):
          return {
+                          'id':self.id, 
                           'nombre':self.nombre, 
-                          'email':self.email,
                           'edad':self.edad,
-                          'id':self.id
+                          'email':self.email
          }
 
 # Creación de la Base de Dato y su tabla
@@ -55,7 +50,7 @@ with app.app_context():
 
 @app.route("/")
 def hello_world():
-    return "<p>(hello_AWS) -    Hello, Big World from Hack_REACT_FLASK_CRUD_AWS!</p>"
+    return "<p>(hello_local) -    Hello, Big World from Hack_REACT_FLASK_CRUD_AWS!</p>"
 
 
 # POST -> Se utiliza para enviar datos al servidor para su procesamiento
