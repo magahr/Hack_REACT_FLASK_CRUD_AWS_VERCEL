@@ -6,6 +6,9 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 
+# esto lo sugirio gemini para la conexion aws en vercel
+from sqlalchemy import create_engine
+
 # esto lo quito si estoy trabajando en vecel, ya esto lo hace vercel
 # load_dotenv()
 
@@ -24,6 +27,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 # dhasta aqui habia una conexion con una base de datos postgress local
+
+# esto lo sugirio gemini para la conexion aws en vercel
+engine = create_engine(db_url)
 
 
 # Creación del modelo de Formulario (modelo - tabla de la base de datos)
