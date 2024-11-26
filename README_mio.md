@@ -33,13 +33,6 @@
     ENV/
     env.bak/
     venv.bak/  
-
-# crear la variable de entorno .env
-   DB_USER=postgres
-   DB_PASSWORD=postgres
-   DB_HOST=formulariosrds.chwqcma4ef8n.us-east-2.rds.amazonaws.com
-   DB_PORT=5432
-   DB_NAME=formularios
     
 # Paso 6.- Salir de Visual CODE
 
