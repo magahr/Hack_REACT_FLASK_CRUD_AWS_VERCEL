@@ -68,10 +68,10 @@
 
 # Paso 11: instalar o crear uno nuevo las dependencias necesarias las cuales dejare en un archivo requirements.txt
     Si ya esta creado, para actualizar una ves que ya se ha bajado el repo:
-       # pip install -r requeriments.txt
+       # pip install -r requirements.txt
 
     Si no está creado, o se quiere actualizar:
-       # pip freeze > requeriments.txt
+       # pip freeze > requirements.txt
 
 # Paso 12: Crear una nueva rama para trabajar desde alli
      git checkout -b feature/flask-con-base-de-datos
@@ -142,4 +142,5 @@ Control de cambio
 1.- git commit -m "16-11-2024 - Changing everythin with conecting with aws"
 2.- git commit -m "17-11-2024 - Conecting with AWS and testing the API"
 3.- git commit -m "18-11-2024 - Updating in my Job"
+4.- git commit -m "25-11-2024 - Updating in  Vercel"
 
