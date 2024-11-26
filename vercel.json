@@ -1,6 +1,7 @@
 {
     "version": 2,
     "builds": [{ "src": "hello.py", "use": "@vercel/python" }],
+    "runtime": "Python 3.12.2"
     "routes": [
       {
         "src": "/(.*)",
@@ -11,3 +12,5 @@
       "FLASK_ENV": "production"
     }
   }
+
+  
