@@ -137,4 +137,5 @@ Control de cambio
 3.- git commit -m "18-11-2024 - Updating in my Job"
 4.- git commit -m "25-11-2024 - Updating in  Vercel"
 5.- git commit -m "26-11-2024 - Updating in  Vercel"
+6.- git commit -m "27-11-2024 - Updating in  Vercel"
 
