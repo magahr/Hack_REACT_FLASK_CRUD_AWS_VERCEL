@@ -1,35 +1,71 @@
+# desde aqui es el original
 # CON LA BASE DE DATOS  AWS  BD formulario
+# from flask import Flask, jsonify, request
+# from flask_sqlalchemy import SQLAlchemy
+# from sqlalchemy import text
+# from flask_cors import CORS
+# from dotenv import load_dotenv
+# import os
+
+# # esto lo sugirio gemini para la conexion aws en vercel
+# from sqlalchemy import create_engine
+
+# # esto lo quito si estoy trabajando en vecel, ya esto lo hace vercel
+# # load_dotenv()
+
+# app = Flask(__name__) 
+# CORS(app)
+
+# db_user = os.getenv('DB_USER')
+# db_password = os.getenv('DB_PASSWORD')
+# db_host = os.getenv('DB_HOST')
+# db_port = os.getenv('DB_PORT')
+# db_name = os.getenv('DB_NAME') 
+
+# # Improved connection URL construction
+# db_url = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+# app.config['SQLALCHEMY_DATABASE_URI'] = db_url
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# db = SQLAlchemy(app)
+# # dhasta aqui habia una conexion con una base de datos postgress local
+
+# # esto lo sugirio gemini para la conexion aws en vercel
+# engine = create_engine(db_url)
+
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import text
 from flask_cors import CORS
-from dotenv import load_dotenv
+from sqlalchemy import text
 import os
 
-# esto lo sugirio gemini para la conexion aws en vercel
-from sqlalchemy import create_engine
-
-# esto lo quito si estoy trabajando en vecel, ya esto lo hace vercel
-# load_dotenv()
-
-app = Flask(__name__) 
+app = Flask(__name__)
 CORS(app)
 
+# Obtener las variables de entorno
 db_user = os.getenv('DB_USER')
 db_password = os.getenv('DB_PASSWORD')
 db_host = os.getenv('DB_HOST')
 db_port = os.getenv('DB_PORT')
-db_name = os.getenv('DB_NAME') 
+db_name = os.getenv('DB_NAME')
 
-# Improved connection URL construction
+# Construir la URL de conexión
 db_url = f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+
+# Configurar SQLAlchemy con opciones adicionales
 app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ECHO'] = False  # Desactivar las consultas SQL en la consola
+app.config['SQLALCHEMY_POOL_SIZE'] = 20  # Ajustar el tamaño del pool de conexiones
 db = SQLAlchemy(app)
-# dhasta aqui habia una conexion con una base de datos postgress local
 
-# esto lo sugirio gemini para la conexion aws en vercel
-engine = create_engine(db_url)
+# Función para manejar errores de conexión a la base de datos
+def handle_db_error(error):
+    # Puedes personalizar este manejador para enviar notificaciones, registrar errores, etc.
+    print(f"Error de conexión a la base de datos: {error}")
+    return jsonify({'error': 'Error de conexión a la base de datos'}), 500
+
+#
+# ... Resto de tu código
 
 
 # Creación del modelo de Formulario (modelo - tabla de la base de datos)
