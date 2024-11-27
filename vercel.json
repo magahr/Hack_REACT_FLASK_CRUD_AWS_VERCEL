@@ -1,15 +1,21 @@
 {
-    "version": 2,
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "hello.py"
-      }
-    ],
-    "env": {
-      "FLASK_ENV": "production",
-      "DATABASE_URL": "postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+ "version": 2,
+  "builds": [
+    {
+      "src": ".",
+      "use": "@vercel/python"
     }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "hello.py"
+    }
+  ],
+  "env": {
+    "FLASK_ENV": "production",
+    "DATABASE_URL": "postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
   }
+}
 
   
