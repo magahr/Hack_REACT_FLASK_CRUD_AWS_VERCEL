@@ -2,7 +2,7 @@
  "version": 2,
   "builds": [
     {
-      "src": ".",
+      "src": "*.py",
       "use": "@vercel/python"
     }
   ],
@@ -17,5 +17,3 @@
     "DATABASE_URL": "postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
   }
 }
-
-  
