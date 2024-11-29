@@ -139,5 +139,5 @@ Control de cambio
 5.- git commit -m "26-11-2024 - Updating in  Vercel"
 6.- git commit -m "27-11-2024 - Updating in  Vercel"
 8.- git commit -m "28-11-2024 - Updating in house"
-
 7.- git commit -m "28-11-2024 - Updating  dockerfile.txt in  Vercel"
+9.- git commit -m "28-11-2024 - Updating versel.json file"
