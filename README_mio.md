@@ -142,3 +142,4 @@ Control de cambio
 7.- git commit -m "28-11-2024 - Updating  dockerfile.txt in  Vercel"
 9.- git commit -m "28-11-2024 - Updating versel.json file"
 10.- git commit -m "28-11-2024 - Updating vercel.json "
+11.- git commit -m "28-11-2024 - Hiding archivos originales"
