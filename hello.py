@@ -99,7 +99,7 @@ with app.app_context():
 @app.route("/")
 def hello_world():
     return "<p>(hola hola) -    Hello desde Vercel, Big World from Hack_REACT_FLASK_CRUD_AWS!</p>"
-
+# epale esto ejectua la app
 if __name__ == '__main__':
     app.run()
 
