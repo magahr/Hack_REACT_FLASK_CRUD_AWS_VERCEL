@@ -99,9 +99,8 @@ with app.app_context():
 @app.route("/")
 def hello_world():
     return "<p>(hola hola) -    Hello desde Vercel, Big World from Hack_REACT_FLASK_CRUD_AWS!</p>"
-# epale esto ejectua la app
-if __name__ == '__main__':
-    app.run()
+
+
 
 # POST -> Se utiliza para enviar datos al servidor para su procesamiento
 # Ruta para crear un estudiante.
@@ -154,6 +153,11 @@ def delete_formulario_by_nombre(formulario_id):
         return jsonify({'message': f'Usuario con ID {formulario_id} eliminado'})
     else:
         return jsonify({'message': 'Usuario no encontrado'}), 404
+    
+
+ # epale esto ejectua la app
+if __name__ == '__main__':
+        app.run()
 
 
 
