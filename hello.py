@@ -100,6 +100,8 @@ with app.app_context():
 def hello_world():
     return "<p>(hola hola) -    Hello desde Vercel, Big World from Hack_REACT_FLASK_CRUD_AWS!</p>"
 
+if __name__ == '__main__':
+    app.run()
 
 # POST -> Se utiliza para enviar datos al servidor para su procesamiento
 # Ruta para crear un estudiante.
